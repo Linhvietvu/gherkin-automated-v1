@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>DeployMavenProject</groupId>
+  <artifactId>ToTomcat</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>Deploy maven project to tomcat server example.</name>
+  <build>
+    <finalName>Deploy maven project to tomcat example</finalName>
+       <plugins>
+          <!-- Below plugin will fix web.xml is missing and <failOnMissingWebXml> is set to true error. -->
+          <plugin>
+             <artifactId>maven-war-plugin</artifactId>
+             <version>2.3</version>
+             <configuration>
+               <failOnMissingWebXml>false</failOnMissingWebXml>
+             </configuration>
+          </plugin>
+
+          <!-- Use below plugin to deploy this maven project to tomcat server -->
+          <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                  <url>http://localhost:8080/manager/text</url>
+                  <path>/DeployMavenToTomcat</path>
+                  <!-- Set update to ture to avoid exist war package can not be override error -->
+                  <update>true</update>
+                  <username>tomcat</username>
+                  <password>tomcat</password>
+                </configuration>
+           </plugin>
+       </plugins>
+   </build>
+</project>
